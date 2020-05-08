@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-class City extends Component {
-  render () {
-    return (
-      <div className="city card-container">
-        <div className="card">
-          <h2> {this.props.city.name} </h2>
-          <p> {this.props.city.address} </p>
-        </div>
-      </div>
-    );
-  }
+import setCities from '../actions/index';
+
+const City = (props) => {
+  return (
+    <li
+      className="list-group-item"
+      onClick={() => props.setCities(props.city)}
+    >{props.city.name}</li>
+  );
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setCities }, dispatch);
 }
 
-export default City;
+export default connect(null, mapDispatchToProps)(City);

@@ -1,10 +1,7 @@
 // TODO: add and export your own actions
-import cities from '../cities';
-
-export default function setCities() {
-  // TODO: Api call! For now, simulate a DB
+export default function setCities(city) {
   return {
-    type: 'SET_CITIES',
-    payload: cities
+    type: 'CITY_SELECTED',
+    payload: city
   };
 }

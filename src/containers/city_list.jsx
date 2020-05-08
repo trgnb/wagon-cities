@@ -1,28 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import City from './city';
 
 class CityList extends Component {
-  static defaultProps = {
-    cities: [
-      { name: 'Paris', address: '16 Villa Gaudelet, 75011 Paris', slug: 'paris' },
-      { name: 'London', address: '14-22 Elder St, London E1 6BT', slug: 'london' },
-      { name: 'Berlin', address: 'Rudi-Dutschke-Straße 26, 10969 Berlin', slug: 'berlin' }
-    ]
-  }
-
-
-  componentWillMount() {
-    // TODO: dispatch an action to load flats!
+  renderList() {
+    if (!this.props.cities) {
+      return 'why isnt it working';
+    } else {
+      return this.props.cities.map((city) => {
+        return (
+          <City key={city.name} city={city} />
+        );
+      });
+    }
   }
 
   render() {
     return (
-      <div className="city-list col-sm-5">
-        Hello
-        {this.props.cities.map((city) => <City city={city} key={city.name} />)}
-      </div>
+      <ul className="list-group cities">
+        {this.renderList()}
+      </ul>
     );
   }
 }
 
-export default CityList;
+function mapStateToProps(state) {
+  return {
+    cities: state.cities
+  };
+}
+
+export default connect(mapStateToProps)(CityList);
